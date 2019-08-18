@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Secret Image Download</string>
+    <string name="first_name">First name</string>
+    <string name="fetch_the_image">Fetch the image</string>
+    <string name="enter_credentials_to_see_the_image">Enter credentials to see the image</string>
+    <string name="last_name">Last name</string>
+    <string name="enable_dark_theme">Enable dark theme</string>
+</resources>
