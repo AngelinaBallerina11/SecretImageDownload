@@ -1,9 +1,13 @@
-package com.angelina.andronova.secretImage.model
+package com.angelina.andronova.secretImage.utils
 
 import java.security.MessageDigest
+import java.util.*
 import javax.inject.Inject
 
-class HashHelper @Inject constructor() {
+/**
+ * Helper class used to apply SHA-1 hash function (possibly can be extended with other hash functions)
+ */
+class HashUtils @Inject constructor() {
 
     fun toSha1(text: String): String {
         val bytes = MessageDigest
@@ -15,7 +19,7 @@ class HashHelper @Inject constructor() {
             result.append(HEX_CHARS[byte.toInt() shr 4 and 0x0f])
             result.append(HEX_CHARS[byte.toInt() and 0x0f])
         }
-        return result.toString()
+        return result.toString().toLowerCase(Locale.US)
     }
 
     companion object {

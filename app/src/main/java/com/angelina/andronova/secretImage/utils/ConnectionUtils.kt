@@ -5,7 +5,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import javax.inject.Inject
 
-
+/**
+ * Used to check if the device is online (cellular or wifi networks)
+ */
 class ConnectionUtils @Inject constructor(private val context: Context) {
     fun isOnline(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

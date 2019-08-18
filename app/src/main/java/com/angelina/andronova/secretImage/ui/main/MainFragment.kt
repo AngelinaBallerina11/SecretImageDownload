@@ -19,14 +19,10 @@ import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
-    private lateinit var binding: MainFragmentBinding
-    lateinit var viewModel: MainViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,8 +61,8 @@ class MainFragment : Fragment() {
                 is ScreenState.Error -> {
                     popProgress()
                     activity?.hideKeyboard()
-                    viewModel.setIdleState()
                     Snackbar.make(binding.root, state.message, Snackbar.LENGTH_SHORT).show()
+                    viewModel.setIdleState()
                 }
             }
         })
@@ -92,5 +88,9 @@ class MainFragment : Fragment() {
             pbProgress.visibility = View.INVISIBLE
             ivPlaceholder.visibility = View.VISIBLE
         }
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 }

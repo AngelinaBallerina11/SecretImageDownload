@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="material_S">8dp</dimen>
+    <dimen name="material_M">16dp</dimen>
+    <dimen name="material_L">24dp</dimen>
+    <dimen name="material_XL">32dp</dimen>
+</resources>
