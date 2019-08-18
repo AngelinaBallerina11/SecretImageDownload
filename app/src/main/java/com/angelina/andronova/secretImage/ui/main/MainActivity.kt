@@ -1,9 +1,10 @@
-package com.angelina.andronova.secretImage
+package com.angelina.andronova.secretImage.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.angelina.andronova.secretImage.ui.main.MainFragment
+import com.angelina.andronova.secretImage.App
+import com.angelina.andronova.secretImage.R
 
 class MainActivity : AppCompatActivity() {
 

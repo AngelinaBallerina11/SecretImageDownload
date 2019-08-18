@@ -75,6 +75,8 @@
                         android:hint="@string/last_name"
                         android:inputType="textNoSuggestions"
                         android:selectAllOnFocus="true"
+                        android:nextFocusDown="@id/etPassword"
+                        android:nextFocusRight="@id/etPassword"
                         android:text="@={vm.usernameInput}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,6 +97,10 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/first_name"
                         android:inputType="textPassword"
+                        android:nextFocusUp="@id/etUsername"
+                        android:nextFocusLeft="@id/etUsername"
+                        android:nextFocusDown="@id/btLogin"
+                        android:nextFocusRight="@id/btLogin"
                         android:selectAllOnFocus="true"
                         android:text="@={vm.passwordInput}"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -128,6 +134,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btLogin"
                     android:contentDescription="@string/image_placeholder_or_downloaded_image"/>
+
+            <ProgressBar
+                    android:id="@+id/pbProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/ivPlaceholder"
+                    app:layout_constraintStart_toStartOf="@id/ivPlaceholder"
+                    app:layout_constraintTop_toTopOf="@id/ivPlaceholder"
+                    app:layout_constraintBottom_toBottomOf="@id/ivPlaceholder"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

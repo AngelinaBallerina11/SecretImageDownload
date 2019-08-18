@@ -6,4 +6,9 @@
     <string name="last_name">Last name</string>
     <string name="enable_dark_theme">Enable dark theme</string>
     <string name="image_placeholder_or_downloaded_image">Image placeholder or downloaded image</string>
+    <string name="you_are_not_authorized">You are not authorized to view this image</string>
+    <string name="generic_error_message">Oops! Something went wrong… Please, try again later.</string>
+    <string name="file_not_found">Image does not exist anymore</string>
+    <string name="server_error">Service is experiencing downtime</string>
+    <string name="you_are_offline">You are not connected to the internet. Please, check your connection and try again later.</string>
 </resources>

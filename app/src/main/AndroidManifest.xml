@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.angelina.andronova.secretImage">
+          xmlns:tools="http://schemas.android.com/tools" package="com.angelina.andronova.secretImage">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:name=".App"
@@ -9,8 +12,10 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/SecretImageTheme">
-        <activity android:name=".MainActivity">
+            android:theme="@style/SecretImageTheme"
+            tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.main.MainActivity"
+                  android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
