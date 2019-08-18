@@ -5,4 +5,5 @@
     <string name="enter_credentials_to_see_the_image">Enter credentials to see the image</string>
     <string name="last_name">Last name</string>
     <string name="enable_dark_theme">Enable dark theme</string>
+    <string name="image_placeholder_or_downloaded_image">Image placeholder or downloaded image</string>
 </resources>

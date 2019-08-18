@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 
 class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
 
-    val nightMode: Int
+    private val nightMode: Int
         get() = sharedPreferences.getInt(PREFERENCE_NIGHT_MODE, PREFERENCE_NIGHT_MODE_DEF_VAL)
 
     private val _nightModeLive: MutableLiveData<Int> = MutableLiveData()
@@ -18,11 +18,11 @@ class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
         get() = nightMode == AppCompatDelegate.MODE_NIGHT_YES
         set(value) {
             sharedPreferences.edit().putInt(
-                PREFERENCE_NIGHT_MODE, if (value) {
-                    AppCompatDelegate.MODE_NIGHT_YES
-                } else {
-                    AppCompatDelegate.MODE_NIGHT_NO
-                }
+                    PREFERENCE_NIGHT_MODE, if (value) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
             ).apply()
             field = value
         }
@@ -32,14 +32,14 @@ class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
         get() = _isDarkThemeLive
 
     private val preferenceChangedListener =
-        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            when (key) {
-                PREFERENCE_NIGHT_MODE -> {
-                    _nightModeLive.value = nightMode
-                    _isDarkThemeLive.value = isDarkTheme
+            SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+                when (key) {
+                    PREFERENCE_NIGHT_MODE -> {
+                        _nightModeLive.value = nightMode
+                        _isDarkThemeLive.value = isDarkTheme
+                    }
                 }
             }
-        }
 
     init {
         // Init preference LiveData objects.
