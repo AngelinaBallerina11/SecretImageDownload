@@ -13,6 +13,11 @@ import org.hamcrest.TypeSafeMatcher
 
 object EspressoTestMatchers {
 
+    /**
+     * Used to check if specific drawable is set in the ImageView
+     *
+     * @param expectedId resource id of the expected drawable
+     */
     fun withDrawable(expectedId: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description?) {}
