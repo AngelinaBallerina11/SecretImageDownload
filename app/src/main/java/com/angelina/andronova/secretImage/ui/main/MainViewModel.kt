@@ -72,7 +72,6 @@ class MainViewModel @Inject constructor(
         when (val result = repo.downloadImage(username.trim(), hashUtils.toSha1(password))) {
             is Success -> {
                 imageDownloadResult.value = hashUtils.decode(result.data.image)
-                screenState.value = ScreenState.Idle
             }
             is Failure -> {
                 screenState.value = ScreenState.Error(

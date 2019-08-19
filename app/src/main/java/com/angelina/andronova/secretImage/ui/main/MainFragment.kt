@@ -36,7 +36,8 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         App.component.inject(this)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = activity?.let { ViewModelProviders.of(it, viewModelFactory).get(MainViewModel::class.java) }
+            ?: throw RuntimeException("Activity cannot be null")
         binding.vm = viewModel
 
         val preferenceRepository = (requireActivity().application as App).preferenceRepository
@@ -70,6 +71,7 @@ class MainFragment : Fragment() {
         viewModel.imageDownloadResult.observe(viewLifecycleOwner, Observer { bitmap ->
             if (bitmap != null) {
                 binding.ivPlaceholder.setImageBitmap(bitmap)
+                viewModel.setIdleState()
             } else {
                 binding.ivPlaceholder.setImageResource(R.drawable.ic_image_placeholder)
             }

@@ -15,10 +15,6 @@ import javax.inject.Singleton
 @Module
 class NetworkModule(var baseUrl: String) {
 
-    companion object {
-        val TOKEN: String = "hashedPassword"
-    }
-
     @Provides
     @Singleton
     fun provideGson(): Gson = GsonBuilder().apply {
