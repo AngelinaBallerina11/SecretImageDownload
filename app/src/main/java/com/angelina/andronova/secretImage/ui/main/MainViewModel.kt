@@ -2,7 +2,6 @@ package com.angelina.andronova.secretImage.ui.main
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,7 +31,7 @@ class MainViewModel @Inject constructor(
     private val connection: ConnectionUtils
 ) : AndroidViewModel(app) {
 
-    val screenState = MutableLiveData<ScreenState>()
+    var screenState = MutableLiveData<ScreenState>()
 
     val usernameInput = MutableLiveData<String>()
     val passwordInput = MutableLiveData<String>()
@@ -60,30 +59,34 @@ class MainViewModel @Inject constructor(
                 passwordInput.value?.let { password ->
                     screenState.value = ScreenState.Loading
                     viewModelScope.launch {
-                        when (val result = repo.downloadImage(username.trim(), hashUtils.toSha1(password))) {
-                            is Success -> {
-                                imageDownloadResult.value = result.data.image.decode()
-                                screenState.value = ScreenState.Idle
-                            }
-                            is Failure -> {
-                                screenState.value = ScreenState.Error(
-                                    message = app.resources.getString(
-                                        when (result.throwable) {
-                                            HttpErrors.Unauthorized, HttpErrors.Forbidden -> R.string.you_are_not_authorized
-                                            HttpErrors.NotFound -> R.string.file_not_found
-                                            HttpErrors.InternalServerError -> R.string.server_error
-                                            else -> R.string.generic_error_message
-                                        }
-                                    )
-                                )
-                                imageDownloadResult.value = null
-                            }
-                        }
+                        downloadImage(username, password)
                     }
                 }
             }
         } else {
-            screenState.value = ScreenState.Error(app.resources.getString(R.string.you_are_offline))
+            screenState.value = ScreenState.Error(app.getString(R.string.you_are_offline))
+        }
+    }
+
+    suspend fun downloadImage(username: String, password: String) {
+        when (val result = repo.downloadImage(username.trim(), hashUtils.toSha1(password))) {
+            is Success -> {
+                imageDownloadResult.value = hashUtils.decode(result.data.image)
+                screenState.value = ScreenState.Idle
+            }
+            is Failure -> {
+                screenState.value = ScreenState.Error(
+                    message = app.resources.getString(
+                        when (result.throwable) {
+                            HttpErrors.Unauthorized, HttpErrors.Forbidden -> R.string.you_are_not_authorized
+                            HttpErrors.NotFound -> R.string.file_not_found
+                            HttpErrors.InternalServerError -> R.string.server_error
+                            else -> R.string.generic_error_message
+                        }
+                    )
+                )
+                imageDownloadResult.value = null
+            }
         }
     }
 
@@ -101,14 +104,6 @@ class MainViewModel @Inject constructor(
      */
     private fun validateInputs() {
         isButtonEnabled.value = !usernameInput.value.isNullOrBlank() && !passwordInput.value.isNullOrBlank()
-    }
-
-    /**
-     * Decode Base64 string to an immutable bitmap
-     */
-    private fun String.decode(): Bitmap {
-        val compressedImageData: ByteArray = android.util.Base64.decode(this, android.util.Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(compressedImageData, 0, compressedImageData.size)
     }
 }
 
